@@ -46,7 +46,7 @@
 
 	$file_output_counter = 0;
 
-	// Adjacent to gill slit of fish (1)
+	// Adjacent to gill slit of fish along SL line (1)
 	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $gill_slit_pos_x, $std_sl_y_loc, $mosaic_box_w, 1, $user_email);
 	$file_output_counter++;
 	// Midpoint of fish along fish height line; i.e., the intersection point between height line and SL line (2)
@@ -55,7 +55,7 @@
 	// Midpoint of fish along SL line (3)
 	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $sl_midpoint_pos_x, $std_sl_y_loc, $mosaic_box_w, 3, $user_email);
 	$file_output_counter++;
-	// Tailend of fish along SL line (shifted inwards 10% of fish SL) (4)
+	// Tailend of fish along SL line (shifted inwards 30% of fish SL) (4)
 	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, ($sl_endpoint_pos_x-$sl_edge_shift_factor), $sl_endpoint_pos_y, $mosaic_box_w, 4, $user_email);
 	$file_output_counter++;
 	// Topmost portion of fish along fish height (shifted downwards 30% of fish height) (5)
