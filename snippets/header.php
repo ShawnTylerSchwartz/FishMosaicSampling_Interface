@@ -16,7 +16,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="Background Removal Clipping Mask Interface for Coral Reef Fish Color Patterns">
+		<meta name="description" content="Fish Landmarking and Mosaic Generator for Coral Reef Fish Color Patterns">
 		<meta name="author" content="Shawn Tyler Schwartz">
 
 		<title>Fish Mosaic Interface</title>
