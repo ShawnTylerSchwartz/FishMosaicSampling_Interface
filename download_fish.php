@@ -35,7 +35,7 @@
  		$directory = $dir;
  		$dir_split = explode("/", $dir);
  		$fam_only = $dir_split[1];
- 		$images = glob($directory . "*.png");
+ 		$images = glob($directory . "*.jpg");
 
  		$numImgs = count($images);
  		echo "<a href='generate_fish_zip.php?dir=" . $dir . "'target='_blank'>";
