@@ -22,6 +22,9 @@
 	$back_px = $_GET['backpx'];
 	$back_py = $_GET['backpy'];
 
+	$cor_dot_height_one = $_GET['cordotheightone'];
+	$cor_dot_height_two = $_GET['cordotheighttwo'];
+
 	// Define Constants
 	//$fish_front_end_scale = .0625;
 	$fish_main_scale = .125;
@@ -68,10 +71,10 @@
 		<button type="button" class="btn btn-danger" onClick="window.location.reload()">
 		  <i class="fas fa-undo"></i> Try Again
 		</button>
-	<p></p>
+<!-- 	<p></p>
 	<button type="button" class="btn btn-secondary" onClick="hideInstructions()">
 		Show/Hide Instructions
-	</button>
+	</button> -->
 
 	<!-- Subscaling Modal Instructions -->
 	<div class="modal fade" id="instructionsModal" tabindex="-1" role="dialog">
@@ -170,6 +173,30 @@
 		clickable.style.backgroundSize = 'contain';
 		clickable.style.backgroundRepeat = 'no-repeat';
 
+		// Draw the SL line from the prev. step for reference
+		var clickWidth = $('#clicker').width();
+		var clickHeight = $('#clicker').height();
+
+		var Hor_ClickOne_x = sl_frontpoint_pos_x;
+		var Hor_ClickTwo_x = sl_endpoint_pos_x;
+
+		var correctedDotHeight_One = <?php echo $cor_dot_height_one; ?>;
+		var correctedDotHeight_Two = <?php echo $cor_dot_height_two; ?>;
+
+
+		var scrollOffsetHeight_Three = 0;
+		var scrollOffsetHeight_Four = 0;
+		var scrollOffsetHeight_Five = 0;
+
+		var correctedDotHeight_Three = 0;
+		var correctedDotHeight_Four = 0;
+		var correctedDotHeight_Five = 0;
+
+		$(".clickable").append(
+			$('<svg width="'+clickWidth+'" height="'+clickHeight+'"><line x1="'+Hor_ClickOne_x+'" y1="'+correctedDotHeight_One+'" x2="'+Hor_ClickTwo_x+'" y2="'+correctedDotHeight_Two+'" stroke="#f47742" stroke-width="6" stroke-dasharray="5,5" /></svg>')
+			.css('position','absolute')
+		);
+
 		$('.clickable').bind('click', function (ev) {
 			
 			console.log("Clicks: " + clickCounter);
@@ -185,8 +212,8 @@
 
 				//$display.text('Horizontal SL Click 1: ' + 'x: ' + Hor_ClickOne_x + ', y: ' + Hor_ClickOne_y);
 
-				scrollOffsetHeight_One = window.scrollY;
-				correctedDotHeight_One = (scrollOffsetHeight_One + gill_slit_pos_y);
+				scrollOffsetHeight_Three = window.scrollY;
+				correctedDotHeight_Three = (scrollOffsetHeight_Three + gill_slit_pos_y);
 
 				var color = '#f47742';
         		var size = '11px';
@@ -194,7 +221,7 @@
         		$(".clickable").append(
             		$('<div></div>')
                 	.css('position', 'absolute')
-                	.css('top', correctedDotHeight_One + 'px')
+                	.css('top', correctedDotHeight_Three + 'px')
                 	.css('left', gill_slit_pos_x + 'px')
                 	.css('width', size)
                 	.css('height', size)
@@ -212,8 +239,8 @@
 
 				//$display.text('Horizontal SL Click 2: ' + 'x: ' + Hor_ClickTwo_x + ', y: ' + Hor_ClickTwo_y);
 
-				scrollOffsetHeight_Two = window.scrollY;
-				correctedDotHeight_Two = (scrollOffsetHeight_One + topmost_pos_y);
+				scrollOffsetHeight_Four = window.scrollY;
+				correctedDotHeight_Four = (scrollOffsetHeight_Four + topmost_pos_y);
 
 				var color = '#57D505';
         		var size = '11px';
@@ -221,7 +248,7 @@
 				$(".clickable").append(
             		$('<div></div>')
                 	.css('position', 'absolute')
-                	.css('top', correctedDotHeight_Two + 'px')
+                	.css('top', correctedDotHeight_Four + 'px')
                 	.css('left', topmost_pos_x + 'px')
                 	.css('width', size)
                 	.css('height', size)
@@ -237,8 +264,8 @@
 				bottommost_pos_x = ev.clientX - offset.left;
 				bottommost_pos_y = ev.clientY - offset.top;
 
-				scrollOffsetHeight_Three = window.scrollY;
-				correctedDotHeight_Three = (scrollOffsetHeight_One + bottommost_pos_y);
+				scrollOffsetHeight_Five = window.scrollY;
+				correctedDotHeight_Five = (scrollOffsetHeight_Five + bottommost_pos_y);
 
 				var color = '#FF00F7';
         		var size = '11px';
@@ -246,7 +273,7 @@
 				$(".clickable").append(
             		$('<div></div>')
                 	.css('position', 'absolute')
-                	.css('top', correctedDotHeight_Three + 'px')
+                	.css('top', correctedDotHeight_Five + 'px')
                 	.css('left', bottommost_pos_x + 'px')
                 	.css('width', size)
                 	.css('height', size)
@@ -254,9 +281,10 @@
                 	.css('background-color', color)
         		);
 
-        		var clickWidth = $('#clicker').width();
-				var clickHeight = $('#clicker').height();
-
+        		$(".clickable").append(
+			$('<svg width="'+clickWidth+'" height="'+clickHeight+'"><line x1="'+topmost_pos_x+'" y1="'+correctedDotHeight_Four+'" x2="'+bottommost_pos_x+'" y2="'+correctedDotHeight_Five+'" stroke="#FF00F7" stroke-width="6" stroke-dasharray="5,5" /></svg>')
+			.css('position','absolute')
+		);
 
         	/*$(".clickable").append(
 					$('<svg width="'+clickWidth+'" height="'+clickHeight+'"><line x1="'+Hor_ClickOne_x+'" y1="'+correctedDotHeight_One+'" x2="'+Hor_ClickTwo_x+'" y2="'+correctedDotHeight_Two+'" stroke="#f47742" stroke-width="6" stroke-dasharray="5,5" /></svg>')

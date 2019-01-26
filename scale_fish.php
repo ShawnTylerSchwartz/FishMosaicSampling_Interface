@@ -255,7 +255,7 @@
 
 				var user_temp_storage = "<?php echo $user_email; ?>";
 				
-				document.getElementById("cropButton").innerHTML+= "<a href='landmark_fish.php?image=<?php echo $current_image;?>&standardlength=" + standardLength + "&user=" + user_temp_storage + "&swidth=" + newScaledWidth + "&sheight=" + newScaledHeight + "&frontpx=" + Hor_ClickOne_x + "&frontpy=" + Hor_ClickOne_y + "&backpx=" + Hor_ClickTwo_x + "&backpy=" + Hor_ClickTwo_y + "&midpx=" + midpoint_coord_x + "&midpy=" + midpoint_coord_y + "&owidth=" + originalWidth + "&oheight=" + originalHeight + "'class='btn btn-success btn-lg' role='button'>Go to Step 2 <i class='far fa-arrow-alt-circle-right'></i></a>";			
+				document.getElementById("cropButton").innerHTML+= "<a href='landmark_fish.php?image=<?php echo $current_image;?>&standardlength=" + standardLength + "&user=" + user_temp_storage + "&swidth=" + newScaledWidth + "&sheight=" + newScaledHeight + "&frontpx=" + Hor_ClickOne_x + "&frontpy=" + Hor_ClickOne_y + "&backpx=" + Hor_ClickTwo_x + "&backpy=" + Hor_ClickTwo_y + "&midpx=" + midpoint_coord_x + "&midpy=" + midpoint_coord_y + "&cordotheightone=" + correctedDotHeight_One + "&cordotheighttwo=" + correctedDotHeight_Two + "&owidth=" + originalWidth + "&oheight=" + originalHeight + "'class='btn btn-success btn-lg' role='button'>Go to Step 2 <i class='far fa-arrow-alt-circle-right'></i></a>";			
 			}		
 		});
 	</script>
