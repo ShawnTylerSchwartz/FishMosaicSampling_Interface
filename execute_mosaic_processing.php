@@ -36,33 +36,36 @@
 	$fish_height = $_GET['fishheight'];
 	$fish_height_midpoint_pos_x = $_GET['heightmpx'];
 
-	$edge_shift_factor_const = 0.3;
+	$edge_shift_factor_const = 0.1;
 	$sl_edge_shift_factor = $sl * $edge_shift_factor_const;
-	$hight_shift_factor_const = 0.3;
+	$hight_shift_factor_const = 0.1;
 	$height_edge_shift_factor = $fish_height * $hight_shift_factor_const;
 
 	// Choose standard y-coord from SL for allignment
 	$std_sl_y_loc = $sl_midpoint_pos_y;
 
+	$midpoint_square = ($mosaic_box_w / 2);
+
 	$file_output_counter = 0;
 
 	// Adjacent to gill slit of fish along SL line (1)
-	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $gill_slit_pos_x, $gill_slit_pos_y, $mosaic_box_w, 1, $user_email);
+	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, ($gill_slit_pos_x-$mosaic_box_w), $gill_slit_pos_y, $mosaic_box_w, 1, $user_email);
 	$file_output_counter++;
 	// Midpoint of fish along fish height line; i.e., the intersection point between height line and SL line (2)
-	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $fish_height_midpoint_pos_x, $std_sl_y_loc, $mosaic_box_w, 2, $user_email);
+	// execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $fish_height_midpoint_pos_x, $std_sl_y_loc, $mosaic_box_w, 2, $user_email);
+	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $gill_slit_pos_x, $gill_slit_pos_y, $mosaic_box_w, 2, $user_email);
 	$file_output_counter++;
 	// Midpoint of fish along SL line (3)
-	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $sl_midpoint_pos_x, $std_sl_y_loc, $mosaic_box_w, 3, $user_email);
+	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, ($sl_midpoint_pos_x+$midpoint_square), $std_sl_y_loc, $mosaic_box_w, 3, $user_email);
 	$file_output_counter++;
 	// Tailend of fish along SL line (shifted inwards 30% of fish SL) (4)
-	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, ($sl_endpoint_pos_x-$sl_edge_shift_factor), $sl_endpoint_pos_y, $mosaic_box_w, 4, $user_email);
+	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, ($sl_endpoint_pos_x-$sl_edge_shift_factor)+$mosaic_box_w, ($sl_endpoint_pos_y-$midpoint_square), $mosaic_box_w, 4, $user_email);
 	$file_output_counter++;
 	// Topmost portion of fish along fish height (shifted downwards 30% of fish height) (5)
 	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $topmost_pos_x, ($topmost_pos_y+abs($height_edge_shift_factor)), $mosaic_box_w, 5, $user_email);
 	$file_output_counter++;
 	// Bottommost portion of fish along fish height (shifted upwards 30% of fish height) (6)
-	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $bottommost_pos_x, ($bottommost_pos_y-$height_edge_shift_factor), $mosaic_box_w, 6, $user_email);
+	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $bottommost_pos_x, ($bottommost_pos_y-abs($height_edge_shift_factor))-$mosaic_box_w, $mosaic_box_w, 6, $user_email);
 	$file_output_counter++;
 
 
