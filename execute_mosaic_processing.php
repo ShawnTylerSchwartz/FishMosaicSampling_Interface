@@ -59,7 +59,7 @@
 	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, ($sl_midpoint_pos_x+$midpoint_square), $std_sl_y_loc, $mosaic_box_w, 3, $user_email);
 	$file_output_counter++;
 	// Tailend of fish along SL line (shifted inwards 30% of fish SL) (4)
-	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, ($sl_endpoint_pos_x-$sl_edge_shift_factor)+$mosaic_box_w, ($sl_endpoint_pos_y-$midpoint_square), $mosaic_box_w, 4, $user_email);
+	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, ($sl_endpoint_pos_x-$sl_edge_shift_factor)-$mosaic_box_w, ($sl_endpoint_pos_y-$midpoint_square), $mosaic_box_w, 4, $user_email);
 	$file_output_counter++;
 	// Topmost portion of fish along fish height (shifted downwards 30% of fish height) (5)
 	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $topmost_pos_x, ($topmost_pos_y+abs($height_edge_shift_factor)), $mosaic_box_w, 5, $user_email);
