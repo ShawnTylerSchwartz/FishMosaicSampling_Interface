@@ -32,6 +32,12 @@
 	$gill_slit_pos_x = $_GET['gillslitpx'];
 	$gill_slit_pos_y = $_GET['gillslitpy'];
 
+	$posterior_eye_pos_x  = $_GET['posterioreyepx'];
+	$posterior_eye_pos_y = $_GET['posterioreyepy'];
+
+	$ventral_eye_pos_x = $_GET['ventraleyepx'];
+	$ventral_eye_pos_y = $_GET['ventraleyepy'];
+
 	$mosaic_box_w = $_GET['mboxw'];
 	$fish_height = $_GET['fishheight'];
 	$fish_height_midpoint_pos_x = $_GET['heightmpx'];

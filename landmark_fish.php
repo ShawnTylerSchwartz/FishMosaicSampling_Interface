@@ -58,7 +58,7 @@
 	</script>
 
 	<p id="title-mod" style="display: block;"><strong>Step 2: Landmarking Points</strong></p>
-	<p class="lead small" id="instructs" style="display: block;"><i class="fas fa-exclamation-triangle"></i> In order for proper placement of landmarks, <u><strong><em>you must be scrolled and stay scrolled</em></strong> to the <strong>top of the page</strong></u> during landmark placement. Please ensure this before sampling, or points will be offset. <strong>I.e., be scrolled to the top of the page and then once you start placing points, do not scroll the page.</strong> Currently rescaling: <strong><?php echo $current_image; ?></strong><br /><span style="color: #f47742;">Click #1: Gill slit.</span> | <span style="color: #57D505;">Click #2: Top-most body depth.</span> | <span style="color: #FF00F7;">Click #3: Bottom-most body depth.</span></p>
+	<p class="lead small" id="instructs" style="display: block;"><i class="fas fa-exclamation-triangle"></i> In order for proper placement of landmarks, <u><strong><em>you must be scrolled and stay scrolled</em></strong> to the <strong>top of the page</strong></u> during landmark placement. Please ensure this before sampling, or points will be offset. <strong>I.e., be scrolled to the top of the page and then once you start placing points, do not scroll the page.</strong> Currently rescaling: <strong><?php echo $current_image; ?></strong><br /><span style="color: #f47742;">Click #1: Gill slit.</span> | <span style="color: #57D505;">Click #2: Top-most body depth.</span> | <span style="color: #FF00F7;">Click #3: Bottom-most body depth.</span> | <span style="color: red;">Click #4: Post. Eye.</span> | <span style="color: red;">Click #5: Vent. Eye..</span></p>
 		<!-- Buttons for triggering modals -->
 		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#instructionsModal">
 		  <i class="fas fa-ruler"></i> Fish Landmarking Instructions
@@ -168,6 +168,14 @@
 		var bottommost_pos_x = 0;
 		var bottommost_pos_y = 0;
 
+		// output crop box 7
+		var posterior_eye_pos_x = 0;
+		var posterior_eye_pos_y = 0;
+
+		// output crop box 8
+		var ventral_eye_pos_x = 0;
+		var ventral_eye_pos_y = 0;
+
 
 		clickable = document.getElementById('clicker');
 		clickable.style.backgroundSize = 'contain';
@@ -188,9 +196,15 @@
 		var scrollOffsetHeight_Four = 0;
 		var scrollOffsetHeight_Five = 0;
 
+		var scrollOffSetHeight_Six = 0;
+		var scrollOffSetHeight_Seven = 0;
+
 		var correctedDotHeight_Three = 0;
 		var correctedDotHeight_Four = 0;
 		var correctedDotHeight_Five = 0;
+
+		var correctedDotHeight_Six = 0;
+		var correctedDotHeight_Seven = 0;
 
 		$(".clickable").append(
 			$('<svg width="'+clickWidth+'" height="'+clickHeight+'"><line x1="'+Hor_ClickOne_x+'" y1="'+correctedDotHeight_One+'" x2="'+Hor_ClickTwo_x+'" y2="'+correctedDotHeight_Two+'" stroke="#f47742" stroke-width="6" stroke-dasharray="5,5" /></svg>')
@@ -290,12 +304,68 @@
 					$('<svg width="'+clickWidth+'" height="'+clickHeight+'"><line x1="'+Hor_ClickOne_x+'" y1="'+correctedDotHeight_One+'" x2="'+Hor_ClickTwo_x+'" y2="'+correctedDotHeight_Two+'" stroke="#f47742" stroke-width="6" stroke-dasharray="5,5" /></svg>')
 					.css('position','absolute')
         		);*/
-			} else {
+			} else if (clickCounter == 3) {
+				var $div = $(ev.target);
+				var $display = $div.find('.display');
+
+				var offset = $div.offset();
+
+				posterior_eye_pos_x = ev.clientX - offset.left;
+				posterior_eye_pos_y = ev.clientY - offset.top;
+
+				//$display.text('Horizontal SL Click 2: ' + 'x: ' + Hor_ClickTwo_x + ', y: ' + Hor_ClickTwo_y);
+
+				scrollOffsetHeight_Six = window.scrollY;
+				correctedDotHeight_Six = (scrollOffsetHeight_Six + posterior_eye_pos_y);
+
+				var color = 'red';
+        		var size = '11px';
+        		var radius = '11px';
+				$(".clickable").append(
+            		$('<div></div>')
+                	.css('position', 'absolute')
+                	.css('top', correctedDotHeight_Six + 'px')
+                	.css('left', posterior_eye_pos_x + 'px')
+                	.css('width', size)
+                	.css('height', size)
+                	.css('borderRadius', radius)
+                	.css('background-color', color)
+        		);
+        	} else if (clickCounter == 4) {
+				var $div = $(ev.target);
+				var $display = $div.find('.display');
+
+				var offset = $div.offset();
+
+				ventral_eye_pos_x = ev.clientX - offset.left;
+				ventral_eye_pos_y = ev.clientY - offset.top;
+
+				//$display.text('Horizontal SL Click 2: ' + 'x: ' + Hor_ClickTwo_x + ', y: ' + Hor_ClickTwo_y);
+
+				scrollOffsetHeight_Seven = window.scrollY;
+				correctedDotHeight_Seven = (scrollOffsetHeight_Seven + ventral_eye_pos_y);
+
+				var color = 'red';
+        		var size = '11px';
+        		var radius = '11px';
+				$(".clickable").append(
+            		$('<div></div>')
+                	.css('position', 'absolute')
+                	.css('top', correctedDotHeight_Seven + 'px')
+                	.css('left', ventral_eye_pos_x + 'px')
+                	.css('width', size)
+                	.css('height', size)
+                	.css('borderRadius', radius)
+                	.css('background-color', color)
+        		);
+        	} 
+
+			else {
 				console.log("All clicks have been recorded.");
 			}
 
 			clickCounter++;
-			if ((clickCounter >= 3)) {
+			if ((clickCounter >= 5)) {
 				// calculate distance between the two clicked points
 				var Hor_diffs_x = (topmost_pos_x - bottommost_pos_x);
 				var Hor_diffs_y = (topmost_pos_y - bottommost_pos_y);
@@ -333,7 +403,7 @@
 				var standardLength = <?php echo $standard_length; ?>;
 				var temp_name_storage = "<?php echo $user_email; ?>";
 				
-				document.getElementById("cropButton").innerHTML+= "<a href='execute_mosaic_processing.php?image=<?php echo $current_image;?>&standardlength=" + standardLength + "&user=" + temp_name_storage + "&swidth=" + newScaledWidth + "&sheight=" + newScaledHeight + "&frontpx=" + sl_frontpoint_pos_x + "&frontpy=" + sl_frontpoint_pos_y + "&backpx=" + sl_endpoint_pos_x + "&backpy=" + sl_endpoint_pos_y + "&midpx=" + sl_midpoint_pos_x + "&midpy=" + sl_midpoint_pos_y + "&fishheight=" + fish_height + "&toppx=" + topmost_pos_x + "&toppy=" + topmost_pos_y + "&bottompx=" + bottommost_pos_x + "&bottompy=" + bottommost_pos_y + "&gillslitpx=" + gill_slit_pos_x + "&gillslitpy=" + gill_slit_pos_y + "&heightmpx=" + height_midpoint_coord_x + "&mboxw=" + <?php echo $mosaic_box_w; ?> + "&owidth=" + originalWidth + "&oheight=" + originalHeight + "'class='btn btn-success btn-lg' role='button'>Generate Fish Mosaics <i class='fas fa-upload'></i></a>";			
+				document.getElementById("cropButton").innerHTML+= "<a href='execute_mosaic_processing.php?image=<?php echo $current_image;?>&standardlength=" + standardLength + "&user=" + temp_name_storage + "&swidth=" + newScaledWidth + "&sheight=" + newScaledHeight + "&frontpx=" + sl_frontpoint_pos_x + "&frontpy=" + sl_frontpoint_pos_y + "&backpx=" + sl_endpoint_pos_x + "&backpy=" + sl_endpoint_pos_y + "&midpx=" + sl_midpoint_pos_x + "&midpy=" + sl_midpoint_pos_y + "&fishheight=" + fish_height + "&toppx=" + topmost_pos_x + "&toppy=" + topmost_pos_y + "&bottompx=" + bottommost_pos_x + "&bottompy=" + bottommost_pos_y + "&gillslitpx=" + gill_slit_pos_x + "&gillslitpy=" + gill_slit_pos_y + "&posterioreyepx=" + posterior_eye_pos_x + "&posterioreyepy=" + posterior_eye_pos_y + "&ventraleyepx=" + ventral_eye_pos_x + "&ventraleyepy=" + ventral_eye_pos_y + "&heightmpx=" + height_midpoint_coord_x + "&mboxw=" + <?php echo $mosaic_box_w; ?> + "&owidth=" + originalWidth + "&oheight=" + originalHeight + "'class='btn btn-success btn-lg' role='button'>Generate Fish Mosaics <i class='fas fa-upload'></i></a>";			
 			}		
 		});
 
