@@ -3,12 +3,16 @@
 
 	$user_email = $_GET['user'];
 
-	header("refresh: 0.1; url=fish_list.php?user=" . $user_email . "&" . SID);
+	$current_image = $_GET['image'];
+
+	// header("refresh: 0.1; url=fish_list.php?user=" . $user_email . "&" . SID);
+
+	header("refresh: 0.1; url=preview_output.php?user=" . $user_email . "&img=" . $current_image . "&" . SID);	
 
 	include 'snippets/header.php';
 	include 'snippets/main.php';
 
-	$current_image = $_GET['image'];
+
 
 	
 
