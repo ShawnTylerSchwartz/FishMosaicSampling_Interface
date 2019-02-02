@@ -16,15 +16,11 @@
 		$name = $noslash[1] . "_" . $sepgenus[1] . "_" . $nospace[1];
 
 	echo "<h2>Are you satisified with the output?</h2>";
-	echo "<p class='lead'>Note: If a <em>sampling mosaic square</em> has any part of the background (spill-over) that is not a part of the fish, please try again. If you are unable to sample the fish without the background, please click below to note this fish in the system.</p>";
+	echo "<p class='lead'>Note: If a <em>sampling mosaic square</em> has any part of the background (spill-over) that is not a part of the fish, please try again. If you are unable to sample the fish without the background, please click <strong>at the bottom of the page</strong> to note this fish in the system for <u>further review</u>.</p>";
 	echo "<a href='fish_list.php?user=" . $user_email . '&' . SID . "' class='btn btn-success'>Yes, next fish <i class='fas fa-forward'></i></a>";
 	echo "&nbsp; &nbsp;";
 	echo "<a href='scale_fish.php?image=" . $img_path . '&user=' . $user_email . '&' . SID . "' class='btn btn-danger'>No, redo <i class='fas fa-undo'></i></a>";
 	echo "<br /><br />";
-
-	//TODO: Add a button to report the fish in a file _reportedFish.html if the fish is having trouble getting sampled without not including the background (from spill-over)
-
-	//TODO: Design mosaic constructor container to output js canvas element image in constructed format
 
 	$descriptions = array();
 
@@ -45,6 +41,25 @@
 		echo " " . $descriptions[$i-1];
 		echo "<br /><br />";
 	}
+?>
 
+	<form action="" method="post">
+		<button type="submit" class="btn btn-warning"><i class="fas fa-exclamation-triangle"></i> Report Fish</button>
+		<input type="hidden" name="button_pressed" value="1" />
+	</form>
 
+<?php
+	if(isset($_POST['button_pressed']))
+	{
+	    $to      = 'shawnschwartz@ucla.edu';
+	    $subject = 'MOSAIC FISH ISSUE';
+	    $message = 'Issue with fish: ' . $img_path . ' output located at: ' . $exportPath . $name;
+	    $headers = 'From: fish-mosaic@shawntylerschwartz.com' . "\r\n" .
+	        'Reply-To: shawnschwartz@ucla.edu' . "\r\n" .
+	        'X-Mailer: PHP/' . phpversion();
+
+	    mail($to, $subject, $message, $headers);
+
+	    echo 'Fish successfully reported. It will be reviewed. Please continue on with another fish in the meantime. Thank you!';
+	}
 ?>
