@@ -24,6 +24,8 @@
 
 	//TODO: Add a button to report the fish in a file _reportedFish.html if the fish is having trouble getting sampled without not including the background (from spill-over)
 
+	//TODO: Design mosaic constructor container to output js canvas element image in constructed format
+
 	$descriptions = array();
 
 	$descriptions[0] = "(Anterior margin of gill slit)";
