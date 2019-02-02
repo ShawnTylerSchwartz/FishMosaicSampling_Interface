@@ -33,7 +33,11 @@
 	<br />
 	<span style="color: #57D505;">Click #2: Top-most body depth.</span>
 	<br />
-	<span style="color: #FF00F7;">Click #3: Bottom-most body depth.</span></p>
+	<span style="color: #FF00F7;">Click #3: Bottom-most body depth.</span>
+	<br />
+	<span style="color: red;">Click #4: Posterior margin of eye.</span>
+	<br />
+	<span style="color: red;">Click #5: Ventral margin of eye.</span></p>
 	<img src="assets/img/fish-landmarks-diagram.png" width="100%" /></a><br /><br />
 	<p>Your goal is to have something that looks like this:</p>
 	<img src="assets/img/Landmark-Example.png" width="100%" style="margin-bottom: 10px;" />
