@@ -100,15 +100,15 @@
 	}
 
 	/**
-		function execute_crop_fish():
-		@param $fish: image path for image to subsample mosaic out of
-		@param $fish_ws: scaled width of fish image
-		@param $fish_hs: scaled height of fish image
-		@param $pos_x: x coordinate position for crop box
-		@param $pos_y: y coordinate position for crop box
-		@param $fish_mosaic_w: width of fish mosaic output, and therefore height since a square
-		@param $boxnum: number for region of fish for uniform output
-		@param $useraddress: stores username or email of the current user for output log purposes
+		* function execute_crop_fish():
+		* @param $fish: image path for image to subsample mosaic out of
+		* @param $fish_ws: scaled width of fish image
+		* @param $fish_hs: scaled height of fish image
+		* @param $pos_x: x coordinate position for crop box
+		* @param $pos_y: y coordinate position for crop box
+		* @param $fish_mosaic_w: width of fish mosaic output, and therefore height since a square
+		* @param $boxnum: number for region of fish for uniform output
+		* @param $useraddress: stores username or email of the current user for output log purposes
 	*/
 	function execute_crop_fish($fish, $fish_ws, $fish_hs, $pos_x, $pos_y, $fish_mosaic_w, $boxnum, $useraddress) {
 		$seshID = session_id();
@@ -153,16 +153,23 @@
 
 		$txt = "_outputData.html";
 
+   		imagejpeg($final, $image_file);
+
 		if(!file_exists($image_file)) {
-   			imagejpeg($final, $image_file);
 
    			$fh = fopen($txt, 'a'); 
-    		$txt=$file.','. $exportPath . $name . ',' . $seshID . ',' . round($fish_ws) . 'x' . round($fish_hs) . ',(' . round($pos_x) . ',' . round($pos_y) . '),'  . $readableDate . ',' . $seshID . ',' . $useraddress . '<hr />'; 
+    		$txt=$file.','. $exportPath . $name . ',' . $seshID . ',' . round($fish_ws) . 'x' . round($fish_hs) . ',(' . round($pos_x) . ',' . round($pos_y) . '),' . $fish_mosaic_w . ',' . $readableDate . ',' . $seshID . ',' . $useraddress . '<hr />'; 
     		fwrite($fh,$txt); // Write information to the file
     		fclose($fh); // Close the file
 
-   			imagedestroy($final);
+		} else {
+			$fh = fopen($txt, 'a'); 
+    		$txt=$file.','. $exportPath . $name . ', REDO ,' . $seshID . ',' . round($fish_ws) . 'x' . round($fish_hs) . ',(' . round($pos_x) . ',' . round($pos_y) . '),' . $fish_mosaic_w . ',' . $readableDate . ',' . $seshID . ',' . $useraddress . '<hr />'; 
+    		fwrite($fh,$txt); // Write information to the file
+    		fclose($fh); // Close the file
 		}
+
+		imagedestroy($final);
 
 		output_image($image_file);
 
