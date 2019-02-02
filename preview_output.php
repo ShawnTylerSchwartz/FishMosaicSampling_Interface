@@ -22,6 +22,7 @@
 	echo "<a href='scale_fish.php?image=" . $img_path . '&user=' . $user_email . '&' . SID . "' class='btn btn-danger'>No, redo <i class='fas fa-undo'></i></a>";
 	echo "<br /><br />";
 
+	//TODO: Add a button to report the fish in a file _reportedFish.html if the fish is having trouble getting sampled without not including the background (from spill-over)
 
 	$descriptions = array();
 
