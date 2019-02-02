@@ -58,7 +58,7 @@
 	</script>
 
 	<p id="title-mod" style="display: block;"><strong>Step 2: Landmarking Points</strong></p>
-	<p class="lead small" id="instructs" style="display: block;"><i class="fas fa-exclamation-triangle"></i> In order for proper placement of landmarks, <u><strong><em>you must be scrolled and stay scrolled</em></strong> to the <strong>top of the page</strong></u> during landmark placement. Please ensure this before sampling, or points will be offset. <strong>I.e., be scrolled to the top of the page and then once you start placing points, do not scroll the page.</strong> Currently rescaling: <strong><?php echo $current_image; ?></strong><br /><span style="color: #f47742;">Click #1: Gill slit.</span> | <span style="color: #57D505;">Click #2: Top-most body depth.</span> | <span style="color: #FF00F7;">Click #3: Bottom-most body depth.</span> | <span style="color: red;">Click #4: Post. Eye.</span> | <span style="color: red;">Click #5: Vent. Eye..</span></p>
+	<p class="lead small" id="instructs" style="display: block;"><i class="fas fa-exclamation-triangle"></i> In order for proper placement of landmarks, <u><strong><em>you must be scrolled and stay scrolled</em></strong> to the <strong>top of the page</strong></u> during landmark placement. Please ensure this before sampling, or points will be offset. <strong>I.e., be scrolled to the top of the page and then once you start placing points, do not scroll the page.</strong> <!-- Currently rescaling: <strong><?php echo $current_image; ?></strong> --><br /><span style="color: #f47742;">Click #1: Gill slit.</span> | <span style="color: #57D505;">Click #2: Top-most body depth.</span> | <span style="color: #FF00F7;">Click #3: Bottom-most body depth.</span> | <span style="color: red;">Click #4: Post. Eye.</span> | <span style="color: red;">Click #5: Vent. Eye.</span></p>
 		<!-- Buttons for triggering modals -->
 		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#instructionsModal">
 		  <i class="fas fa-ruler"></i> Fish Landmarking Instructions
@@ -134,7 +134,7 @@
 	<p></p>
 
 	<div class='clickable' id='clicker'>
-		<span class='display'></span>
+		<!-- <span class='display'></span> -->
 		<img src="<?php echo $current_image; ?>" id="fishSample" width="100%" height="100%" />
 	</div>
 
@@ -211,6 +211,7 @@
 			.css('position','absolute')
 		);
 
+
 		$('.clickable').bind('click', function (ev) {
 			
 			console.log("Clicks: " + clickCounter);
@@ -242,6 +243,11 @@
                 	.css('borderRadius', radius)
                 	.css('background-color', color)
         		);
+
+        		console.log("X: " + gill_slit_pos_x);
+        		console.log("Y: " + gill_slit_pos_y);
+        		console.log("scrollOffsetHeight_Three: " + scrollOffsetHeight_Three);
+        		console.log("correctedDotHeight_Three: " + correctedDotHeight_Three);
 			} else if (clickCounter == 1) {
 				var $div = $(ev.target);
 				var $display = $div.find('.display');

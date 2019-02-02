@@ -74,6 +74,13 @@
 	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $bottommost_pos_x, ($bottommost_pos_y-abs($height_edge_shift_factor))-$mosaic_box_w, $mosaic_box_w, 6, $user_email);
 	$file_output_counter++;
 
+	// Posterior Eye 
+		execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $posterior_eye_pos_x, $posterior_eye_pos_y-$midpoint_square, $mosaic_box_w / 2, 7, $user_email);
+	$file_output_counter++;
+
+	// Ventral Eye
+	execute_crop_fish($_GET['image'], $scaled_width, $scaled_height, $ventral_eye_pos_x-$midpoint_square, $ventral_eye_pos_y, $mosaic_box_w / 2, 8, $user_email);
+	$file_output_counter++;
 
 	echo '<script type="text/javascript">alert("' . $file_output_counter . ' Fish mosaic samples have been successfully saved! Serving next fish...Press OK to continue!");</script>';
 
